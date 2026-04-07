@@ -60,7 +60,7 @@ export async function POST(request) {
     });
 
     // Generate a confirmation link and send via our SMTP
-    const siteUrl = process.env.SITE_URL ?? new URL(request.url).origin;
+    const siteUrl = new URL(request.url).origin;
     const { data: linkData } = await supabase.auth.admin.generateLink({
       type: 'magiclink',
       email,

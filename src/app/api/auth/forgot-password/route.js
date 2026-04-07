@@ -13,7 +13,7 @@ export async function POST(request) {
 
     const supabase = createSupabaseServiceClient();
 
-    const siteUrl = process.env.SITE_URL ?? new URL(request.url).origin;
+    const siteUrl = new URL(request.url).origin;
     const redirectTo = process.env.PASSWORD_RESET_REDIRECT_URL ?? `${siteUrl}/reset-password`;
 
     const { data, error } = await supabase.auth.admin.generateLink({
