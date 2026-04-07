@@ -13,7 +13,7 @@ export async function POST(request) {
 
     const supabase = createSupabaseServiceClient();
 
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? new URL(request.url).origin;
+    const siteUrl = process.env.SITE_URL ?? new URL(request.url).origin;
     const { data, error } = await supabase.auth.admin.generateLink({
       type: 'magiclink',
       email,
