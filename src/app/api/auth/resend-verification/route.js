@@ -17,7 +17,6 @@ export async function POST(request) {
     const { data, error } = await supabase.auth.admin.generateLink({
       type: 'magiclink',
       email,
-      options: { redirectTo: `${siteUrl}/login` },
     });
 
     if (error) {
@@ -31,8 +30,12 @@ export async function POST(request) {
       return NextResponse.json({ ok: false, error: error.message }, { status: 400 });
     }
 
-    const confirmUrl = data?.properties?.action_link;
+    let confirmUrl = data?.properties?.action_link;
     if (confirmUrl) {
+      // Force the redirect_to to our actual domain regardless of Supabase dashboard setting
+      const linkObj = new URL(confirmUrl);
+      linkObj.searchParams.set('redirect_to', `${siteUrl}/login`);
+      confirmUrl = linkObj.toString();
       await sendConfirmationEmail(email, confirmUrl);
     }
 

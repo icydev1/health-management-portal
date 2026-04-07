@@ -28,8 +28,12 @@ export async function POST(request) {
       return NextResponse.json({ ok: true, message: 'If the email exists, a reset link was sent.' });
     }
 
-    const resetUrl = data?.properties?.action_link;
+    let resetUrl = data?.properties?.action_link;
     if (resetUrl) {
+      // Force the redirect_to to our actual domain regardless of Supabase dashboard setting
+      const linkObj = new URL(resetUrl);
+      linkObj.searchParams.set('redirect_to', redirectTo);
+      resetUrl = linkObj.toString();
       await sendResetPasswordEmail(email, resetUrl);
     }
 
