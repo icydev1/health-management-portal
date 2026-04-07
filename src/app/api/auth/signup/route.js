@@ -60,9 +60,11 @@ export async function POST(request) {
     });
 
     // Generate a confirmation link and send via our SMTP
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? new URL(request.url).origin;
     const { data: linkData } = await supabase.auth.admin.generateLink({
       type: 'magiclink',
       email,
+      options: { redirectTo: `${siteUrl}/login` },
     });
 
     const confirmUrl = linkData?.properties?.action_link;
