@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 const REGION_LABELS = {
   NORD_WEST:          'North West',
@@ -262,7 +263,7 @@ export default function MyJobsPage() {
                   </span>
                 </div>
 
-                <JobAction status={job.status} />
+                <JobAction status={job.status} id={job.id} />
               </div>
             );
           })}
@@ -272,22 +273,24 @@ export default function MyJobsPage() {
   );
 }
 
-function JobAction({ status }) {
+function JobAction({ status, id }) {
   const MAP = {
-    in_progress: { label: 'Submit Work',  cls: 'bg-green-700 hover:bg-green-800 text-white' },
-    due_soon:    { label: 'Submit Now',   cls: 'bg-orange-600 hover:bg-orange-700 text-white' },
+    in_progress: { label: 'View Details & Submit', cls: 'bg-green-700 hover:bg-green-800 text-white' },
+    due_soon:    { label: 'View Details — Due Soon', cls: 'bg-orange-600 hover:bg-orange-700 text-white' },
     upcoming:    { label: 'View Details', cls: 'border-2 border-gray-300 text-gray-700 hover:bg-gray-50' },
     completed:   { label: 'View Report',  cls: 'border-2 border-gray-300 text-gray-600 hover:bg-gray-50' },
     expired:     { label: 'Expired',      cls: 'bg-red-50 text-red-600 border border-red-200 cursor-default' },
   };
   const item = MAP[status];
   if (!item) return null;
+  if (status === 'expired') {
+    return <button disabled className={`w-full py-2.5 text-sm font-semibold rounded-lg transition-colors ${item.cls}`}>{item.label}</button>;
+  }
   return (
-    <button
-      disabled={status === 'expired'}
-      className={`w-full py-2.5 text-sm font-semibold rounded-lg transition-colors ${item.cls}`}
-    >
-      {item.label}
-    </button>
+    <Link href={`/freelancer/my-jobs/${id}`}>
+      <button className={`w-full py-2.5 text-sm font-semibold rounded-lg transition-colors ${item.cls}`}>
+        {item.label}
+      </button>
+    </Link>
   );
 }

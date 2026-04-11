@@ -289,6 +289,11 @@ export default function FreelancersPage() {
                       </td>
                       <td className="px-5 py-4">
                         <div className="flex items-center gap-3">
+                          <Link href={`/admin/freelancers/${f.id}`}>
+                            <button className="text-blue-600 hover:text-blue-800 font-semibold text-sm transition-colors">
+                              View
+                            </button>
+                          </Link>
                           <Link href={`/admin/freelancers/edit?id=${f.id}`}>
                             <button className="text-green-600 hover:text-green-800 font-semibold text-sm transition-colors">
                               Edit
@@ -383,7 +388,7 @@ export default function FreelancersPage() {
               </button>
             </div>
 
-            {/* CSV template hint + download */}
+            {/* CSV template hint */}
             <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-semibold text-blue-700">Expected format:</span>

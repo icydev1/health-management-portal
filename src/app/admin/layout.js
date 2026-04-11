@@ -39,6 +39,13 @@ const SettingsIcon = () => (
   </svg>
 );
 
+const DraftIcon = () => (
+  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+    <path fillRule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clipRule="evenodd" />
+  </svg>
+);
+
 const LogoutIcon = () => (
   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
     <path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd"></path>
@@ -149,6 +156,7 @@ export default function AdminLayout({ children }) {
         <nav className="flex-1 space-y-2 px-4 py-6">
           <NavLink href="/admin/dashboard"   label="Dashboard"   icon={<DashboardIcon />} sidebarOpen={sidebarOpen} />
           <NavLink href="/admin/orders"      label="Orders"      icon={<FolderIcon />}    sidebarOpen={sidebarOpen} />
+          <NavLink href="/admin/drafts"      label="Drafts"      icon={<DraftIcon />}     sidebarOpen={sidebarOpen} badge={3} />
           <NavLink href="/admin/freelancers" label="Freelancers" icon={<UsersIcon />}     sidebarOpen={sidebarOpen} />
           <NavLink href="/admin/invoices"    label="Invoices"    icon={<ChartIcon />}     sidebarOpen={sidebarOpen} />
           <NavLink href="/admin/analytics"   label="Analytics"   icon={<ChartIcon />}     sidebarOpen={sidebarOpen} />
@@ -230,14 +238,26 @@ export default function AdminLayout({ children }) {
   );
 }
 
-function NavLink({ href, label, icon, sidebarOpen }) {
+function NavLink({ href, label, icon, sidebarOpen, badge }) {
   return (
     <Link
       href={href}
       className="flex items-center gap-3 rounded-lg px-4 py-3 text-gray-300 transition-colors duration-200 hover:bg-green-600 hover:text-white active:bg-green-700"
     >
-      {icon}
-      {sidebarOpen && <span className="text-sm font-medium">{label}</span>}
+      <div className="relative shrink-0">
+        {icon}
+        {badge > 0 && !sidebarOpen && (
+          <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-green-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+            {badge}
+          </span>
+        )}
+      </div>
+      {sidebarOpen && <span className="text-sm font-medium flex-1">{label}</span>}
+      {sidebarOpen && badge > 0 && (
+        <span className="ml-auto bg-green-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+          {badge}
+        </span>
+      )}
     </Link>
   );
 }
