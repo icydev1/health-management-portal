@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { useRequireClientAuth } from '@/lib/auth/requireClientAuth';
 import { clearAuth } from '@/store/authSlice';
@@ -239,22 +240,29 @@ export default function AdminLayout({ children }) {
 }
 
 function NavLink({ href, label, icon, sidebarOpen, badge }) {
+  const pathname = usePathname();
+  const isActive = pathname === href || (href !== '/admin/dashboard' && pathname.startsWith(href));
+
   return (
     <Link
       href={href}
-      className="flex items-center gap-3 rounded-lg px-4 py-3 text-gray-300 transition-colors duration-200 hover:bg-green-600 hover:text-white active:bg-green-700"
+      className={`flex items-center gap-3 rounded-lg px-4 py-3 transition-colors duration-200 ${
+        isActive
+          ? 'bg-green-600 text-white'
+          : 'text-gray-300 hover:bg-green-600 hover:text-white'
+      }`}
     >
       <div className="relative shrink-0">
         {icon}
         {badge > 0 && !sidebarOpen && (
-          <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-green-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+          <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-white text-green-700 text-[10px] font-bold rounded-full flex items-center justify-center">
             {badge}
           </span>
         )}
       </div>
       {sidebarOpen && <span className="text-sm font-medium flex-1">{label}</span>}
       {sidebarOpen && badge > 0 && (
-        <span className="ml-auto bg-green-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+        <span className={`ml-auto text-xs font-bold px-2 py-0.5 rounded-full ${isActive ? 'bg-white text-green-700' : 'bg-green-500 text-white'}`}>
           {badge}
         </span>
       )}

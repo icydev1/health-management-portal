@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { useRequireClientAuth } from '@/lib/auth/requireClientAuth';
 import { clearAuth } from '@/store/authSlice';
@@ -238,10 +239,17 @@ export default function FreelancerLayout({ children }) {
 }
 
 function NavLink({ href, label, icon, sidebarOpen }) {
+  const pathname = usePathname();
+  const isActive = pathname === href || (href !== '/freelancer/dashboard' && pathname.startsWith(href));
+
   return (
     <Link
       href={href}
-      className="flex items-center gap-3 rounded-lg px-4 py-3 text-gray-300 transition-colors duration-200 hover:bg-green-600 hover:text-white active:bg-green-700"
+      className={`flex items-center gap-3 rounded-lg px-4 py-3 transition-colors duration-200 ${
+        isActive
+          ? 'bg-green-600 text-white'
+          : 'text-gray-300 hover:bg-green-600 hover:text-white'
+      }`}
     >
       {icon}
       {sidebarOpen && <span className="text-sm font-medium">{label}</span>}
