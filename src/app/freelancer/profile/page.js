@@ -3,6 +3,23 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
+const LANGUAGES = [
+  'German',
+  'English',
+  'French',
+  'Spanish',
+  'Italian',
+  'Portuguese',
+  'Dutch',
+  'Polish',
+  'Turkish',
+  'Arabic',
+  'Russian',
+  'Chinese (Mandarin)',
+  'Japanese',
+  'Korean',
+];
+
 const REGION_LABELS = {
   NORD_WEST: 'North West',
   BAYERN: 'Bayern',
@@ -446,22 +463,23 @@ export default function ProfilePage() {
                     </span>
                   ))}
                 </div>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={newLang}
-                    onChange={(e) => setNewLang(e.target.value)}
-                    placeholder="e.g. German"
-                    className="flex-1 px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-green-600 focus:outline-none"
-                    onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleAddLanguage(); } }}
-                  />
-                  <button
-                    onClick={handleAddLanguage}
-                    className="px-4 py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 transition-colors font-semibold"
-                  >
-                    Add
-                  </button>
-                </div>
+                <select
+                  className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-lg focus:border-green-600 focus:outline-none bg-white"
+                  defaultValue=""
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (!val) return;
+                    if (!draft.languages.includes(val)) {
+                      setDraft((prev) => ({ ...prev, languages: [...prev.languages, val] }));
+                    }
+                    e.target.value = '';
+                  }}
+                >
+                  <option value="" disabled>— Select a language —</option>
+                  {LANGUAGES.map((lang) => (
+                    <option key={lang} value={lang}>{lang}</option>
+                  ))}
+                </select>
               </div>
             )}
           </div>

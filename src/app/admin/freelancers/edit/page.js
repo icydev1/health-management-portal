@@ -12,12 +12,29 @@ const REGIONS = [
   { value: 'SACHSEN',            label: 'Sachsen' },
 ];
 
+const LANGUAGES = [
+  'German',
+  'English',
+  'French',
+  'Spanish',
+  'Italian',
+  'Portuguese',
+  'Dutch',
+  'Polish',
+  'Turkish',
+  'Arabic',
+  'Russian',
+  'Chinese (Mandarin)',
+  'Japanese',
+  'Korean',
+];
+
 function EditFreelancerForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get('id');
 
-  const [form, setForm] = useState({ firstName: '', lastName: '', email: '', region: '', role: 'FREELANCER', accountStatus: 'PENDING' });
+  const [form, setForm] = useState({ firstName: '', lastName: '', email: '', region: '', role: 'FREELANCER', accountStatus: 'PENDING', languages: [] });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
@@ -40,6 +57,7 @@ function EditFreelancerForm() {
           region:        p.region        ?? '',
           role:          p.role          ?? 'FREELANCER',
           accountStatus: p.accountStatus ?? 'PENDING',
+          languages:     p.languages     ?? [],
         });
       } catch { setNotFound(true); }
       finally { setLoading(false); }
@@ -198,6 +216,53 @@ function EditFreelancerForm() {
             <p className="text-xs text-gray-500 mt-1">
               Only <strong>Active</strong> accounts can log in to the platform.
             </p>
+          </div>
+
+          {/* Languages */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-800 mb-2">Languages</label>
+            <div className="relative">
+              <select
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-green-600 focus:outline-none bg-white"
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (!val) return;
+                  setForm((prev) =>
+                    prev.languages.includes(val)
+                      ? prev
+                      : { ...prev, languages: [...prev.languages, val] }
+                  );
+                  e.target.value = '';
+                }}
+                defaultValue=""
+              >
+                <option value="" disabled>— Add a language —</option>
+                {LANGUAGES.map((lang) => (
+                  <option key={lang} value={lang}>{lang}</option>
+                ))}
+              </select>
+            </div>
+            {form.languages.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-3">
+                {form.languages.map((lang) => (
+                  <span key={lang} className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 text-blue-700 border border-blue-200 rounded-full text-sm font-medium">
+                    {lang}
+                    <button
+                      type="button"
+                      onClick={() => setForm((prev) => ({ ...prev, languages: prev.languages.filter((l) => l !== lang) }))}
+                      className="text-blue-400 hover:text-blue-700 transition-colors"
+                    >
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
+            {form.languages.length === 0 && (
+              <p className="text-xs text-gray-400 mt-2">No languages added yet.</p>
+            )}
           </div>
 
           <div className="flex gap-4 pt-2">
