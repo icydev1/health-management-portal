@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactCompiler: true,
+  experimental: {
+    optimizePackageImports: ['@reduxjs/toolkit', 'react-redux'],
+  },
   images: {
     remotePatterns: [
       {

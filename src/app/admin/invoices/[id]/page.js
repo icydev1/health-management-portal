@@ -6,11 +6,11 @@ import { useParams } from 'next/navigation';
 
 // ─── Mock Data (shared with listing) ─────────────────────────────────────────
 const MOCK_INVOICES = [
-  { id: '1',  num: 'INV-2026-012', type: 'incoming', from: 'Sarah Ahmed',     initials: 'SA', amount: '€350.00',   amountRaw: 350,   date: '2026-04-10', due: '2026-04-24', status: 'pending',   handledBy: null,  orderRef: 'ORD-2026-045', description: 'Nutrition Presentation – PharmaGroup GmbH',  fastbillId: null,     address: 'Musterstraße 12, 10115 Berlin', iban: 'DE89 3704 0044 0532 0130 00', bic: 'COBADEFFXXX', taxId: 'DE287654321', items: [{ desc: 'Nutrition Presentation (4h)', qty: 1, unit: '€350.00', total: '€350.00' }], subtotal: '€350.00', tax: '€66.50 (19%)', total: '€416.50', notes: '' },
-  { id: '2',  num: 'INV-2026-011', type: 'incoming', from: 'Peter Schulz',    initials: 'PS', amount: '€420.00',   amountRaw: 420,   date: '2026-04-09', due: '2026-04-23', status: 'pending',   handledBy: null,  orderRef: 'ORD-2026-042', description: 'Workshop – Siemens AG',                       fastbillId: null,     address: 'Lindenweg 5, 20095 Hamburg',    iban: 'DE12 2004 1010 0505 0150 00', bic: 'COBADEFFXXX', taxId: 'DE287123456', items: [{ desc: 'Workshop facilitation (6h)', qty: 1, unit: '€420.00', total: '€420.00' }], subtotal: '€420.00', tax: '€79.80 (19%)', total: '€499.80', notes: '' },
-  { id: '3',  num: 'INV-2026-010', type: 'incoming', from: 'Lisa Braun',      initials: 'LB', amount: '€180.00',   amountRaw: 180,   date: '2026-04-07', due: '2026-04-21', status: 'on_hold',   handledBy: 'YL',  orderRef: 'ORD-2026-044', description: 'Survey Participation – TechCorp AG',          fastbillId: null,     address: 'Rosenstraße 8, 80331 München',  iban: 'DE21 7001 1110 0530 2200 00', bic: 'COBADEFFXXX', taxId: 'DE288765432', items: [{ desc: 'Survey facilitation (2h)', qty: 1, unit: '€180.00', total: '€180.00' }], subtotal: '€180.00', tax: '€34.20 (19%)', total: '€214.20', notes: 'Missing receipt for travel expenses.' },
-  { id: '4',  num: 'INV-2026-009', type: 'incoming', from: 'Tom Brandt',      initials: 'TB', amount: '€290.00',   amountRaw: 290,   date: '2026-04-05', due: '2026-04-19', status: 'approved',  handledBy: 'MS',  orderRef: 'ORD-2026-041', description: 'Cardio Screening – Deutsche Telekom',         fastbillId: 'FB-8821',address: 'Bergstraße 22, 60313 Frankfurt',iban: 'DE57 5001 0517 0648 4898 90', bic: 'INGDDEFFXXX', taxId: 'DE289012345', items: [{ desc: 'Cardio screening (3h)', qty: 1, unit: '€290.00', total: '€290.00' }], subtotal: '€290.00', tax: '€55.10 (19%)', total: '€345.10', notes: '' },
-  { id: '5',  num: 'INV-2026-008', type: 'incoming', from: 'Alex Brown',      initials: 'AB', amount: '€220.00',   amountRaw: 220,   date: '2026-04-02', due: '2026-04-16', status: 'paid',      handledBy: 'YL',  orderRef: 'ORD-2026-040', description: 'Marketing Evaluation – MediaGroup GmbH',     fastbillId: 'FB-8810',address: 'Hauptstraße 3, 04109 Leipzig',  iban: 'DE87 3607 0024 0689 7315 00', bic: 'DEUTDEDBLEG', taxId: 'DE290123456', items: [{ desc: 'Marketing evaluation (2.5h)', qty: 1, unit: '€220.00', total: '€220.00' }], subtotal: '€220.00', tax: '€41.80 (19%)', total: '€261.80', notes: '' },
+  { id: '1',  num: 'INV-2026-012', type: 'incoming', from: 'Sarah Ahmed',     initials: 'SA', amount: '€350.00',   amountRaw: 350,   date: '2026-04-10', due: '2026-04-24', status: 'pending',   handledBy: null,  orderRef: 'ORD-2026-045', description: 'Nutrition Presentation – PharmaGroup GmbH',  fastbillId: null,     feedbackFile: null, feedbackUploadedAt: null,     address: 'Musterstraße 12, 10115 Berlin', iban: 'DE89 3704 0044 0532 0130 00', bic: 'COBADEFFXXX', taxId: 'DE287654321', items: [{ desc: 'Nutrition Presentation (4h)', qty: 1, unit: '€350.00', total: '€350.00' }], subtotal: '€350.00', tax: '€66.50 (19%)', total: '€416.50', notes: '' },
+  { id: '2',  num: 'INV-2026-011', type: 'incoming', from: 'Peter Schulz',    initials: 'PS', amount: '€420.00',   amountRaw: 420,   date: '2026-04-09', due: '2026-04-23', status: 'pending',   handledBy: null,  orderRef: 'ORD-2026-042', description: 'Workshop – Siemens AG',                       feedbackFile: null, feedbackUploadedAt: null,                       fastbillId: null,     address: 'Lindenweg 5, 20095 Hamburg',    iban: 'DE12 2004 1010 0505 0150 00', bic: 'COBADEFFXXX', taxId: 'DE287123456', items: [{ desc: 'Workshop facilitation (6h)', qty: 1, unit: '€420.00', total: '€420.00' }], subtotal: '€420.00', tax: '€79.80 (19%)', total: '€499.80', notes: '' },
+  { id: '3',  num: 'INV-2026-010', type: 'incoming', from: 'Lisa Braun',      initials: 'LB', amount: '€180.00',   amountRaw: 180,   date: '2026-04-07', due: '2026-04-21', status: 'on_hold',   handledBy: 'YL',  orderRef: 'ORD-2026-044', description: 'Survey Participation – TechCorp AG',          feedbackFile: null, feedbackUploadedAt: null,          fastbillId: null,     address: 'Rosenstraße 8, 80331 München',  iban: 'DE21 7001 1110 0530 2200 00', bic: 'COBADEFFXXX', taxId: 'DE288765432', items: [{ desc: 'Survey facilitation (2h)', qty: 1, unit: '€180.00', total: '€180.00' }], subtotal: '€180.00', tax: '€34.20 (19%)', total: '€214.20', notes: 'Missing receipt for travel expenses.' },
+  { id: '4',  num: 'INV-2026-009', type: 'incoming', from: 'Tom Brandt',      initials: 'TB', amount: '€290.00',   amountRaw: 290,   date: '2026-04-05', due: '2026-04-19', status: 'approved',  handledBy: 'MS',  orderRef: 'ORD-2026-041', description: 'Cardio Screening – Deutsche Telekom',         feedbackFile: 'feedback-DeutscheTelekom-ORD-2026-041.pdf', feedbackUploadedAt: '2026-04-06',         fastbillId: 'FB-8821',address: 'Bergstraße 22, 60313 Frankfurt',iban: 'DE57 5001 0517 0648 4898 90', bic: 'INGDDEFFXXX', taxId: 'DE289012345', items: [{ desc: 'Cardio screening (3h)', qty: 1, unit: '€290.00', total: '€290.00' }], subtotal: '€290.00', tax: '€55.10 (19%)', total: '€345.10', notes: '' },
+  { id: '5',  num: 'INV-2026-008', type: 'incoming', from: 'Alex Brown',      initials: 'AB', amount: '€220.00',   amountRaw: 220,   date: '2026-04-02', due: '2026-04-16', status: 'paid',      handledBy: 'YL',  orderRef: 'ORD-2026-040', description: 'Marketing Evaluation – MediaGroup GmbH',     feedbackFile: 'feedback-MediaGroup-ORD-2026-040.pdf', feedbackUploadedAt: '2026-04-03',     fastbillId: 'FB-8810',address: 'Hauptstraße 3, 04109 Leipzig',  iban: 'DE87 3607 0024 0689 7315 00', bic: 'DEUTDEDBLEG', taxId: 'DE290123456', items: [{ desc: 'Marketing evaluation (2.5h)', qty: 1, unit: '€220.00', total: '€220.00' }], subtotal: '€220.00', tax: '€41.80 (19%)', total: '€261.80', notes: '' },
   { id: '6',  num: 'INV-2026-007', type: 'incoming', from: 'Julia Meier',     initials: 'JM', amount: '€160.00',   amountRaw: 160,   date: '2026-03-30', due: '2026-04-13', status: 'cancelled', handledBy: 'YL',  orderRef: 'ORD-2026-039', description: 'Retail Audit – RetailPlus GmbH',              fastbillId: null,     address: 'Schillerplatz 1, 70173 Stuttgart',iban:'DE91 6005 0101 7815 3869 87',bic: 'STUTTGARDXXX',taxId:'DE291234567',items: [{ desc: 'Retail audit (2h)', qty: 1, unit: '€160.00', total: '€160.00' }], subtotal: '€160.00', tax: '€30.40 (19%)', total: '€190.40', notes: 'Cancelled – freelancer did not complete the order.' },
   { id: '7',  num: 'INV-2026-006', type: 'incoming', from: 'Maria Hoffmann',  initials: 'MH', amount: '€480.00',   amountRaw: 480,   date: '2026-03-25', due: '2026-04-08', status: 'paid',      handledBy: 'MS',  orderRef: 'ORD-2026-038', description: 'Employee Wellness – Bosch GmbH',              fastbillId: 'FB-8798',address: 'Kaiserstraße 14, 76133 Karlsruhe',iban:'DE12 6601 0075 0515 8985 00',bic:'COBADEFFXXX',taxId:'DE292345678',items: [{ desc: 'Wellness workshop (full day)', qty: 1, unit: '€480.00', total: '€480.00' }], subtotal: '€480.00', tax: '€91.20 (19%)', total: '€571.20', notes: '' },
   { id: '8',  num: 'INV-OUT-004',  type: 'outgoing', from: 'PharmaGroup GmbH',initials: 'PG', amount: '€950.00',   amountRaw: 950,   date: '2026-04-08', due: '2026-04-22', status: 'pending',   handledBy: 'YL',  orderRef: 'ORD-2026-045', description: 'Service Invoice – Nutrition Presentation',    fastbillId: 'FB-8830',address: 'PharmaGroup GmbH, Am Promenadeplatz 6, 80333 München', iban: 'DE89 7000 0000 0123 4567 89', bic: 'COBADEFFXXX', taxId: '', items: [{ desc: 'Nutrition Presentation – Freelancer Service', qty: 1, unit: '€800.00', total: '€800.00' }, { desc: 'Platform service fee (18.75%)', qty: 1, unit: '€150.00', total: '€150.00' }], subtotal: '€950.00', tax: '€180.50 (19%)', total: '€1,130.50', notes: '' },
@@ -141,6 +141,9 @@ export default function InvoiceDetailPage() {
 
   const [currentStatus, setCurrentStatus] = useState(invoice.status);
   const [currentHandler, setCurrentHandler] = useState(invoice.handledBy);
+  const [feedbackFile, setFeedbackFile]     = useState(invoice.feedbackFile);
+  const [feedbackDate, setFeedbackDate]     = useState(invoice.feedbackUploadedAt);
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [modal, setModal] = useState(null);
   const [activityLog, setActivityLog] = useState([
     { icon: '📄', iconBg: 'bg-gray-100 text-gray-600', title: 'Invoice uploaded', sub: `${invoice.from} submitted this invoice`, time: invoice.date + ' 09:14' },
@@ -171,7 +174,7 @@ export default function InvoiceDetailPage() {
   const canApprove  = currentStatus === 'pending' || currentStatus === 'on_hold';
   const canHold     = currentStatus === 'pending';
   const canCancel   = currentStatus === 'pending' || currentStatus === 'on_hold' || currentStatus === 'approved';
-  const canMarkPaid = currentStatus === 'approved';
+  const canMarkPaid = currentStatus === 'approved' && !!feedbackFile;
 
   return (
     <div className="p-8 max-w-6xl mx-auto">
@@ -205,7 +208,16 @@ export default function InvoiceDetailPage() {
         <div className="flex gap-2 flex-wrap">
           {canApprove  && <button onClick={() => openModal('approve')}  className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors">Approve</button>}
           {canHold     && <button onClick={() => openModal('on_hold')}  className="px-4 py-2 bg-orange-500 text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors">Hold</button>}
-          {canMarkPaid && <button onClick={() => openModal('mark_paid')}className="px-4 py-2 bg-green-700 text-white rounded-lg text-sm font-semibold hover:bg-green-800 transition-colors">Mark Paid</button>}
+          {currentStatus === 'approved' && (
+            <button
+              onClick={() => feedbackFile ? openModal('mark_paid') : null}
+              title={!feedbackFile ? 'Client feedback form required before marking as paid' : ''}
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center gap-2 ${feedbackFile ? 'bg-green-700 text-white hover:bg-green-800' : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
+            >
+              {!feedbackFile && <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"/></svg>}
+              Mark Paid
+            </button>
+          )}
           {canCancel   && <button onClick={() => openModal('cancel')}   className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-semibold hover:bg-red-700 transition-colors">Cancel</button>}
           <button
             onClick={() => window.open(`/invoice-print/${invoice.id}`, '_blank')}
@@ -448,9 +460,56 @@ export default function InvoiceDetailPage() {
               <div className="space-y-2">
                 {canApprove  && <button onClick={() => openModal('approve')}  className="w-full px-4 py-2.5 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors text-left flex items-center gap-2"><span>✓</span> Approve Invoice</button>}
                 {canHold     && <button onClick={() => openModal('on_hold')}  className="w-full px-4 py-2.5 bg-orange-500 text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors text-left flex items-center gap-2"><span>⏸</span> Put on Hold</button>}
-                {canMarkPaid && <button onClick={() => openModal('mark_paid')}className="w-full px-4 py-2.5 bg-green-700 text-white rounded-lg text-sm font-semibold hover:bg-green-800 transition-colors text-left flex items-center gap-2"><span>€</span> Mark as Paid</button>}
+                {currentStatus === 'approved' && (
+                  <button
+                    onClick={() => feedbackFile ? openModal('mark_paid') : null}
+                    title={!feedbackFile ? 'Client feedback form required before marking as paid' : ''}
+                    className={`w-full px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors text-left flex items-center gap-2 ${feedbackFile ? 'bg-green-700 text-white hover:bg-green-800' : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
+                  >
+                    <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"/></svg>
+                    {feedbackFile ? 'Mark as Paid' : 'Mark as Paid (awaiting feedback form)'}
+                  </button>
+                )}
                 {canCancel   && <button onClick={() => openModal('cancel')}   className="w-full px-4 py-2.5 bg-red-50 text-red-600 border-2 border-red-200 rounded-lg text-sm font-semibold hover:bg-red-100 transition-colors text-left flex items-center gap-2"><span>✕</span> Cancel Invoice</button>}
               </div>
+            </div>
+          )}
+
+          {/* Client Feedback Form card */}
+          {invoice.type === 'incoming' && (
+            <div className="bg-white border-2 border-gray-200 rounded-2xl p-5">
+              <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wide mb-4">Client Feedback Form</h3>
+              {feedbackFile ? (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 text-green-700">
+                    <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+                    <span className="text-sm font-semibold">Form received</span>
+                  </div>
+                  <div className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-200 rounded-xl">
+                    <div className="w-9 h-10 bg-red-100 rounded-lg flex items-center justify-center shrink-0">
+                      <svg className="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clipRule="evenodd"/></svg>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs font-semibold text-gray-800 truncate">{feedbackFile}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">Uploaded {feedbackDate}</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => alert('PDF download available once connected to backend.')}
+                    className="w-full px-3 py-2 border border-gray-200 text-gray-600 rounded-lg text-xs font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Download PDF
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <div className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-200 rounded-xl">
+                    <svg className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"/></svg>
+                    <p className="text-xs text-amber-700">No feedback form uploaded yet. Invoice cannot be marked as paid until received.</p>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
